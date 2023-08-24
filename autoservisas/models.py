@@ -19,19 +19,22 @@ class Modelis(models.Model):
         return f"{self.marke}, {self.modelis}, {self.metai}, {self.variklis}"
 
 
-
 class Automobilis(models.Model):
     valstybinis_nr = models.CharField('Numeris', max_length=100)
     vin = models.IntegerField('VIN', max_length=13)
     klientas = models.CharField('Klientas', max_length=100)
     modelis = models.ForeignKey('Modelis', on_delete=models.CASCADE)
 
+    # def __str__(self):
+    #     return f" {self.modelis.marke}, {self.modelis.modelis} | {self.valstybinis_nr} - {self.klientas}"
+
     def __str__(self):
-        return f" {self.modelis.marke}, {self.modelis.modelis} | {self.valstybinis_nr} - {self.klientas}"
+        return f" {self.modelis.marke}, {self.modelis.modelis} - {self.klientas}"
 
     class Meta:
         verbose_name = 'Automobilis'
         verbose_name_plural = 'Automobiliai'
+
 
 class Uzsakymas(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -40,10 +43,10 @@ class Uzsakymas(models.Model):
     automobilis = models.ForeignKey('Automobilis', on_delete=models.CASCADE, related_name='uzsakymai')
 
     UZSAKYMO_STATUSAS = (
-        ('L', 'Laukiama apmokėjimo'),
+        ('V', 'Vykdomas'),
         ('I', 'Ivykdytas'),
         ('A', 'Atšauktas'),
-        ('F', 'Grąžintas pavedimas')
+        ('L', 'Laukia eilėje')
     )
 
     status = models.CharField(
@@ -59,9 +62,11 @@ class Uzsakymas(models.Model):
         verbose_name = 'Užsakymas'
         verbose_name_plural = 'Užsakymai'
 
+    # def __str__(self):
+    #     return f"{self.status} | Užsakymas: {self.id} | Klientas: {self.automobilis.klientas}, " \
+    #            f"Valst. Nr.: {self.automobilis.valstybinis_nr}"
     def __str__(self):
-        return f"{self.status} | Užsakymas: {self.id} | Klientas: {self.automobilis.klientas}, " \
-               f"Valst. Nr.: {self.automobilis.valstybinis_nr}"
+        return f"{self.id}"
 
 
 class Uzsakymoeil(models.Model):
@@ -72,11 +77,12 @@ class Uzsakymoeil(models.Model):
 
     def __str__(self):
         return f"Kiekis: {self.kiekis} | " \
-               f"Paslauga: {self.paslauga.pavadinimas} | Kiekis: {self.paslauga.kaina} "
+               f"Paslauga: {self.paslauga.pavadinimas} | Kaina: {self.paslauga.kaina} "
 
     class Meta:
         verbose_name = 'Užsakymo eilutė'
         verbose_name_plural = 'Užsakymo eilutės'
+
 
 class Paslauga(models.Model):
     pavadinimas = models.CharField("Paslaugos pavadinimas", max_length=100)

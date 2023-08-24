@@ -1,0 +1,25 @@
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+  background: linear-gradient(to bottom, #bacede, #f0f0f0);
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-nav li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-nav li i {
+  margin-right: 10px;
+}
+
+.sidebar-nav li:hover {
+  background-color: #495057;
+  cursor: pointer;
+  border-radius: 10px;
+}

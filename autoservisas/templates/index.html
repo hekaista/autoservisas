@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>KAT Autoservisas</h1>
+<p>Sveiki atvykę į sanatoriją automobiliams!</p>
+<p>Šiuo metu:<p>
+<ul>
+    <li>Modelių: {{ num_modeliai_t }} </li>
+    <li>Automobilių: {{ num_automobiliai_t }} </li>
+    <li>Užsakymų: {{ num_uzsakymai_t }} </li>
+    <li>Laukančių remonto/kitų paslaugų: {{ num_uzsakymai_onhold_t }} </li>
+    <li>Teikiamų paslaugų: {{ num_paslaugos_t }}</li>
+</ul>
+{% endblock %}
