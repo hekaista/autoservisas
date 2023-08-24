@@ -23,7 +23,7 @@ class Automobilis(models.Model):
     valstybinis_nr = models.CharField('Numeris', max_length=100)
     vin = models.IntegerField('VIN', max_length=13)
     klientas = models.CharField('Klientas', max_length=100)
-    modelis = models.ForeignKey('Modelis', on_delete=models.CASCADE)
+    modelis = models.ForeignKey('Modelis', on_delete=models.CASCADE,related_name='automobiliai')
 
     # def __str__(self):
     #     return f" {self.modelis.marke}, {self.modelis.modelis} | {self.valstybinis_nr} - {self.klientas}"

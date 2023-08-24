@@ -3,9 +3,9 @@
 {% block content %}
 <h4>Automobiliai</h4>
 <p>Automobiliai mūsų Servise:</p>
-    <ul>
-        {% for automod in automods_t %}
-            <li>{{ automod.marke }} {{ automod.modelis }} ({{ automod.metai }})</li>
-        {% endfor %}
-    </ul>
+<ul>
+  {% for automod in automods_t %}
+    <li><a href="{% url 'auto-detail' automod.id %}">{{ automod.marke }} {{ automod.modelis }}</a></li>
+  {% endfor %}
+</ul>
 {% endblock %}

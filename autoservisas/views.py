@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from .models import Modelis, Automobilis, Uzsakymas, Paslauga
@@ -30,3 +30,13 @@ def automods(request):
         'automods_t': automods
     }
     return render(request, 'automods.html', context=context_t)
+
+
+def auto_detail(request, id):
+    automod = get_object_or_404(Modelis, pk=id)
+    automobiliai = automod.automobiliai.all()
+    context = {
+        'automod': automod,
+        'automobiliai': automobiliai
+    }
+    return render(request, 'auto_detail.html', context=context)
