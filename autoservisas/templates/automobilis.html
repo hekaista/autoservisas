@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-mx-auto">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">{{ automobilis.klientas }} - {{ automobilis.valstybinis_nr }} - {{ automobilis.vin }}</h4>
+          </div>
+          <div class="card-body">
+            <p><strong>Markė ir modelis:</strong> {{ automobilis.modelis.marke }} {{ automobilis.modelis.modelis }}</p>
+            <p><strong>Metai:</strong> {{ automobilis.modelis.metai }}</p>
+            <p><strong>Variklis:</strong> {{ automobilis.modelis.variklis }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

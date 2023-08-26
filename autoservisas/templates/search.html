@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-mx-auto">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Paieškos rezultatai</h4>
+          </div>
+          <div class="card-body">
+            {% if search_results_t %}
+              <p>Rasta rezultatų: {{ search_results_t|length }}</p>
+              <ul>
+                {% for result in search_results_t %}
+                  <li>
+                    <a href="{% url 'auto-one' result.id %}">
+                      {{ result.klientas }} - {{ result.modelis.marke }} {{ result.modelis.modelis }} - {{ result.valstybinis_nr }} - {{ result.vin }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>Nerasta rezultatų pagal paieškos kriterijus.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

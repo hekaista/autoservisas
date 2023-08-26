@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Paslaugos</h4>
+            <div>
+              {% if paslaugos_t %}
+                <ul>
+                  {% for paslauga in paslaugos_t %}
+                    <li><strong>{{ paslauga.pavadinimas }}</strong> - {{ paslauga.kaina }} €</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>Paslaugų nėra</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-mx-auto">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Užsakymas: {{ uzsakymas.data }}</h4>
+          </div>
+          <div class="card-body">
+            <p><strong>Statusas:</strong>
+              <span class="
+                {% if uzsakymas.status == 'L' %}text-info
+                {% elif uzsakymas.status == 'I' %}text-success
+                {% elif uzsakymas.status == 'A' %}text-danger
+                {% elif uzsakymas.status == 'V' %}text-warning
+                {% endif %}
+              ">{{ uzsakymas.get_status_display }}</span></p>
+            <p><strong>Suma:</strong> {{ uzsakymas.suma }}</p>
+            <p><strong>Automobilis:</strong> <a href="{% url 'auto-one' uzsakymas.automobilis.id %}">{{ uzsakymas.automobilis }}</a></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Užsakytos paslaugos:</strong></h5>
+            {% if uzsakymas.uzsakymoeil_set.exists %}
+              <ul>
+                {% for eilute in uzsakymas.uzsakymoeil_set.all %}
+                  <li>{{ eilute.paslauga }} - Kiekis: {{ eilute.kiekis }} - Kaina: {{ eilute.kaina }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>Užsakymas neturi jokių eilučių.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -20,10 +20,17 @@ MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             {% block sidebar %}
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Pradžia</a></li>
-                <li><a href="{% url 'automods-all' %}">Visi automobiliai</a></li>
-                <li><a href="">Visos paslaugos</a></li>
+                <li><a href="{% url 'auto-all' %}">Visi automobiliai</a></li>
+                <li><a href="{% url 'uzsakymai-list' %}">Užsakymai</a></li>
+                <li><a href="{% url 'paslaugos-list' %}">Visos paslaugos</a></li>
             </ul>
             {% endblock %}
+            <div class="search-form">
+                <form method="GET" action="{% url 'search' %}">
+                    <input type="text" name="search_text" placeholder="Ieškoti...">
+                    <button type="submit">Ieškoti</button>
+                </form>
+            </div>
         </div>
         <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
     </div>

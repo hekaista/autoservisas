@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
+from django.db.models import Q
 from django.http import HttpResponse
 
 from .models import Modelis, Automobilis, Uzsakymas, Paslauga
@@ -24,19 +26,52 @@ def index(request):
     return render(request, 'index.html', context=context_t)
 
 
-def automods(request):
-    automods = Modelis.objects.all()
-    context_t = {
-        'automods_t': automods
-    }
-    return render(request, 'automods.html', context=context_t)
-
-
-def auto_detail(request, id):
-    automod = get_object_or_404(Modelis, pk=id)
-    automobiliai = automod.automobiliai.all()
+def automobiliai(request):
+    automobiliai = Automobilis.objects.all()
     context = {
-        'automod': automod,
         'automobiliai': automobiliai
     }
-    return render(request, 'auto_detail.html', context=context)
+    return render(request, 'automobiliai.html', context=context)
+
+
+def automobilis(request, auto_id):
+    automobilis = get_object_or_404(Automobilis, pk=auto_id)
+    context = {
+        'automobilis': automobilis
+    }
+    return render(request, 'automobilis.html', context=context)
+
+
+def paslaugos_list(request):
+    paslaugos = Paslauga.objects.all()
+    context = {
+        'paslaugos_t': paslaugos
+    }
+    return render(request, 'paslaugos.html', context)
+
+
+class UzsakymaiListView(generic.ListView):
+    model = Uzsakymas
+    context_object_name = 'uzsakymai'
+    template_name = 'uzsakymai_list.html'
+
+
+class UzsakymasDetailView(generic.DetailView):
+    model = Uzsakymas
+    context_object_name = 'uzsakymas'
+    template_name = 'uzsakymas_detail.html'
+
+
+def search(request):
+    query = request.GET.get('search_text')
+    search_results = Automobilis.objects.filter(
+        Q(klientas__icontains=query) |
+        Q(modelis__marke__icontains=query) |
+        Q(valstybinis_nr__icontains=query) |
+        Q(vin__icontains=query)
+    )
+    context = {
+        'query_t': query,
+        'search_results_t': search_results
+    }
+    return render(request, 'search.html', context=context)

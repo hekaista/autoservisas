@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-mx-auto">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Automobiliai</h4>
+          </div>
+          <div class="card-body">
+            <p>Automobiliai mūsų Servise:</p>
+            <ul>
+              {% for automobilis in automobiliai %}
+                <li><a href="{% url 'auto-one' automobilis.id %}">{{ automobilis.modelis.marke }} {{ automobilis.modelis.modelis }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
